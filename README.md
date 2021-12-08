@@ -16,5 +16,6 @@ prinf("What it's your name!");
 [Search for information](https://www.google.com)
 
 <!-- ![The Dojocat](https://octodex.github.com/images/dojocat.jpg)  -->
-<p><img src="https://octodex.github.com/images/dojocat.jpg" style="width:50px;height:60px;">
+<p><img src="https://octodex.github.com/images/dojocat.jpg" style="width:64px;height:80px;" >
 
+    
