@@ -15,7 +15,6 @@ prinf("What it's your name!");
 
 [Search for information](https://www.google.com)
 
-![Alt text][id]
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+![The Dojocat](https://octodex.github.com/images/dojocat.jpg) 
 
 
