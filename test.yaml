@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-example
+  labels:
+    app: web-app-test
+  namespace: default
+
+spec:
+  containers:
+    - name: web-app-test
+      image: stacksimplify/kubenginx:1.0.0
+      ports:
+        - containerPort: 80 
+      command: ['']
+      args: ['Hello world']
+
+
+
+#Type of kubernet object
+# POD ---
+# ReplicaSet ---
+# Deployment ---
+# Service --- 
+# and more.... (this will explain later)
+
+#ApiVersion --> This is the version of k8s object 
+#kind: ---> type of k8s object (pod, replicaset....)
+#metadata: --> Define name and labels for k8s object
+#spec:  --> specification or real difinition for k8s object
