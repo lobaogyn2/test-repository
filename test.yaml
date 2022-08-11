@@ -26,6 +26,30 @@ spec:
       port: 80
       targetPort: 80
 
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: Rset-example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app-test-rs
+  template:   #Pod templates
+    metadata:
+      name: pod-example
+      labels:
+        app: web-app-test-rs
+      namespace: default
+    spec:
+      containers:
+        - name: web-app-test-rs
+          image: stacksimplify/kubenginx:2.0.0
+          ports:
+            - containerPort: 80
+          
+
 
 #Type of kubernet object
 # POD ---
