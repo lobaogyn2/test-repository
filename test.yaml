@@ -1,20 +1,30 @@
 apiVersion: v1
-kind: Pod
+kind: Service
 metadata:
   name: pod-example
   labels:
     app: web-app-test
   namespace: default
-
 spec:
   containers:
     - name: web-app-test
       image: stacksimplify/kubenginx:1.0.0
       ports:
         - containerPort: 80 
-      command: ['']
-      args: ['Hello world']
-
+ #     command: ['']
+ #     args: ['Hello world']
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pod-example-loadbalancer-service
+spec:
+  type: LoadBalancer # Clound be ClusterIP, NoderPort... so on
+  selector: web-app-test
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
 
 
 #Type of kubernet object
