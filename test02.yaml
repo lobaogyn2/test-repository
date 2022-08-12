@@ -10,17 +10,17 @@ spec:
   selector:
     matchLabels:
       app: backend-restapp
-    template:
-      metadata:
-        labels:
-          app: backend-restapp
-          tier: backend
-      spec:
-        containers:
-          - name: backend-restapp
-            image: stacksimplify/kube-helloword:1.0.0
-            ports:
-              - containerPort: 8080
+  template:
+    metadata:
+      labels:
+        app: backend-restapp
+        tier: backend
+    spec:
+      containers:
+        - name: backend-restapp
+          image: stacksimplify/kube-helloworld:1.0.0
+          ports:
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -34,3 +34,43 @@ spec:
     - name : http
       port: 8080
       targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-nginxapp
+  labels:
+    app: frontend-nginxapp
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend-nginxapp
+  template:
+    metadata:
+      labels:
+        app: frontend-nginxapp
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend-nginxapp
+          image: stacksimplify/kube-frontend-nginx:1.0.0
+          ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-nginx-app-loadbalancer-service
+  labels:
+    app: frontend-nginxapp
+    tier: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend-nginxapp
+  ports:
+    - name: http
+      port: 80   #SERVICE PORT
+      targetPort: 80  # CONTAINER PORT
