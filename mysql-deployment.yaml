@@ -1,51 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-test
+  name: mysql
 spec:
   replicas: 1  #Number of container running-up
   selector: # Pod select label
     matchLabels:
-      app: mysql-test
+      app: mysql
   strategy: #Strategy for our deployment, and behavior
     type: Recreate
   template: # Pod template
     metadata:
       labels:
-        app: mysql-test
-        tier: database
+        app: mysql
     spec: #Pod Specification
       containers:
-        - name: mysql-test
+        - name: mysql
           image: mysql:5.6
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: dbpassword11
-          port:
+          ports:
             - containerPort: 3306
               name: mysql
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
-            - name: database-config
+            - name: usermanagement-dbcreation
               mountPath: /docker-entrypoint-initdb.d
-
       volumes: #Pod Specification level resource
         - name: mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: azure-managed-disk-partition-volume-claim
-        - name: database-config
+            claimName: azure-managed-disk-pvc
+        - name: usermanagement-dbcreation
           configMap:
             name: usermanagement-dbcreation
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-spec:
-  selector:
-    app: mysql-test
-  ports:
-    - port: 3306
-  clusterIP: none
-

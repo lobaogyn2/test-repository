@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      initContainers:
+      - name: init-db
+        image: busybox:1.31
+        command: [`sh`,`-c`, `echo -e "Cheeking for available MYSQL server deployment";while ! nc -z mysql 3306; do sleep 1; printf "->"; done; echo -e ">>MYSQL server started!"`]
+      containers:
+        - name: webapp
+          image: stacksimplify/kube-usermgmt-webapp:1.0.0-MySQLDB
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOSTNAME
+              value: mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "webappdb"
+            - name: DB_USERNAME
+              value: "root"
+            - name: DB_PASSWORD
+              value: "dbpassword11"

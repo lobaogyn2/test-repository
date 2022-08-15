@@ -1,14 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: azure-managed-disk-partition-volume-claim
+  name: azure-managed-disk-pvc
 spec:
-  acceesModes:
+  accessModes:
   - ReadWriteOnce
   storageClassName: managed-premium-retain-sc
   resources:
     requests:
       storage: 5Gi
 
-
-#PVC => Partition VOlume Claim
