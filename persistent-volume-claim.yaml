@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: azure-managed-disk-Partition-Volume-Claim
+  name: azure-managed-disk-partition-volume-claim
 spec:
   acceesModes:
   - ReadWriteOnce

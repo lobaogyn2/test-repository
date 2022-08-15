@@ -7,7 +7,7 @@ parameters:
   storageAccountType: Premium_LRS
   kind: managed
 allowVolumeExpansion: true
-volumeBindingMode: WaitForConsumer  #Important
+volumeBindingMode: WaitForFirstConsumer  #Important
 reclaimPolicy: Retain #Important
 
 ##
